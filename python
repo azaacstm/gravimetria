@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+
+
+gamma = 9.8*10**(-11)         #Constante gravitacional
+r   = 8                      #Raio
+rho = 4                       #Densidade kg/m3
+
+
+y = np.linspace (-100,50,100)  #grid observado y
+x = np.linspace(-100,50,100)   #grid observado x
+zo= 0                         #grid observado z
+Y,X = np.meshgrid(x,y)
+
+xc = 0           #centro da esfera na coordenada x
+yc = 0           #centro da esfera na coordenada y
+zc = 20.0        #centro da esfera na coordenada z
+
+def gz(zo,X,Y):
+  result = (gamma*(4/3)*np.pi*r**3*rho*(zc/ np.sqrt(((X-xc)**2 +(Y-yc)**2+ (zo-zc)**2 ))**3 ))
+  return result
+
+resultado = gz(zo,X,Y)/10**(-5)
+print(resultado)
+
+ax.plot_surface(x,y,resultado)
+plt.show()
